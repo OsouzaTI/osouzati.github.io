@@ -162,6 +162,9 @@ window.onload = function(){
         });
     }
     
+    
+
+
     function main(){
         
         clear_buffer_color();        

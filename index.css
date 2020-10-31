@@ -1,9 +1,11 @@
 @import url('https://fonts.googleapis.com/css2?family=Libre+Baskerville&display=swap');
 :root {
     --main-bg-color: #eef1ff;
-    --nav-bg-color: #a3cafc;
+    --text-color: #000000;
+    --nav-bg-color: #305a94;
     --nav-item-color: #769fcd;
-    --link-color: #355f7f;
+    --link-color: #d3dce2;
+    --nav-bg-color1: #061735b9;
 }
 
 
@@ -12,21 +14,90 @@ html{
     font-family: 'Libre Baskerville', serif;
 }
 
-body { margin: 0px; }
+body{margin: 0;}
 
-#top {
-    padding: 0px;
+#middle{
+    text-align: center;
+}
+
+#p-cards{    
+    display: grid;
+    grid-template-columns: repeat(2, 0.7fr);
+    padding: 5px;    
+    margin: auto;
+    max-width: 90vh;
+}
+
+.project {
+    transition: 1s;
+    position: relative;
+    background-color: var(--nav-bg-color);    
+    height: 300px;
+    border: 2px solid rgba(0, 0, 0, 0.418);
+    margin: 5px;
+    padding: 10px;
+    border-radius: 5px;
+    color: white;
+    display: grid;
+    grid-template-rows: 50px 200px 70px;    
+
+    -webkit-box-shadow: 4px 3px 5px 0px rgba(0,0,0,0.25);
+    -moz-box-shadow: 4px 3px 5px 0px rgba(0,0,0,0.25);
+    box-shadow: 4px 3px 5px 0px rgba(0,0,0,0.25);
+
+}
+
+.p-body{    
+    overflow-y: hidden;
+}
+
+.p-description{        
+    text-overflow: ellipsis; 
+    text-align: center;
+}
+
+.p-title{
+    
+}
+
+.p-date{
+    
+}
+
+.p-link{
+    text-decoration: none;
+    color: var(--link-color);   
+    animation: LinksColor  infinite; 
+}
+
+.p-link:hover{
+    opacity: 0.5;
+}
+
+.p-footer{
+    position: relative;
+    display: flex;   
+    justify-content: space-between;    
+    margin: 0px 10px 0px 10px;   
+}
+
+.project:hover{                 
+    transition: 1s;
+    transition-timing-function: ease-in-out;
+    background-color: #2e2eb8;
 }
 
 .nav {
     background-color: var(--nav-bg-color);
     padding: 8px;
     margin: 0;
+    font-size: 20px;
+    color: var(--link-color);  
 }
 
 .nav a {
     text-decoration: none;
-    color: var(--link-color);
+    color: var(--link-color);    
 }
 
 .nav-ul {
