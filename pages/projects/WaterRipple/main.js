@@ -1,5 +1,6 @@
 window.onload = function(){
     let canvas = document.getElementById("canvas");
+    let range = document.getElementById("myrange");
     canvas.width = document.body.clientWidth;
     canvas.height = document.body.clientHeight
     var ctx = canvas.getContext("2d");        
@@ -32,6 +33,11 @@ window.onload = function(){
         let y = Math.round(e.clientY);
         previous[x][y] = 255;
     });
+
+    range.addEventListener('change', ()=>{
+        console.log("mudou");
+        damping = (range.value / 100);
+    })
 
     //--------------
 
@@ -104,7 +110,7 @@ window.onload = function(){
     load_buffers();    
 
     function main(){
-        
+
         clear_buffer_color();        
         
         waterRipple();

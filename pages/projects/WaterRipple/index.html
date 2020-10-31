@@ -6,9 +6,19 @@
             body{
                 margin: 0;
             }
+
+            .slidecontainer{
+                display: flex;                
+                justify-content: space-evenly;
+            }
         </style>
     </head>
     <body>
-        <canvas id="canvas"  width="640" height="480"></canvas>
+        <div class="slidecontainer">
+            <label> Dampening:</label> 
+            <input type="range" min="0" max="100" value="90" class="slider" id="myrange">
+        </div>
+        <canvas id="canvas"  width="640" height="480">
+        </canvas>
     </body>
 </html>
