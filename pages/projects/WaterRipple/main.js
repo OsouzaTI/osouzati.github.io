@@ -37,6 +37,9 @@ window.onload = function(){
     range.addEventListener('change', ()=>{
         console.log("mudou");
         damping = (range.value / 100);
+
+        var output = document.getElementById("l-range");
+        output.innerHTML = "Dampening: (" + damping + ")";
     })
 
     //--------------
