@@ -13,19 +13,19 @@ window.onload = function(){
     let previous = [];
     let damping = 0.99;
  
-    addEventListener("resize", ()=>{
-        console.log("resize");
-        canvas.width = document.body.clientWidth;
-        canvas.height = document.body.clientHeight;
-        canvasWidth = canvas.width;
-        canvasHeight = canvas.height;
-        imageData = ctx.createImageData(canvasWidth, canvasHeight);
-        CENTER_WINDOW = {x: Math.round(canvasWidth / 2), y: Math.round(canvasHeight / 2)};
+    // addEventListener("resize", ()=>{
+    //     console.log("resize");
+    //     canvas.width = document.body.clientWidth;
+    //     canvas.height = document.body.clientHeight;
+    //     canvasWidth = canvas.width;
+    //     canvasHeight = canvas.height;
+    //     imageData = ctx.createImageData(canvasWidth, canvasHeight);
+    //     CENTER_WINDOW = {x: Math.round(canvasWidth / 2), y: Math.round(canvasHeight / 2)};
         
-        load_buffers(); 
+    //     load_buffers(); 
         
-        console.log(canvasWidth);
-    })
+    //     console.log(canvasWidth);
+    // })
 
     // Jquery event
     addEventListener("mousemove", (e)=>{
