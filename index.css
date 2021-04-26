@@ -1,23 +1,60 @@
 @import url('https://fonts.googleapis.com/css2?family=Libre+Baskerville&display=swap');
 :root {
-    --main-bg-color: #eef1ff;
+    --main-bg-color: #ffffff;
     --text-color: #000000;
-    --nav-bg-color: #305a94;
+    --nav-bg-color: #05294bf1;
     --nav-item-color: #769fcd;
+    --card-hover-color: #125adfe1;
     --link-color: #d3dce2;
     --nav-bg-color1: #061735b9;
+    --icon-color: #ffffff;
+    --icon-bg-color: #332c2c6c;
 }
 
 
 html{
     background-color: var(--main-bg-color);
-    font-family: 'Libre Baskerville', serif;
+    font-family: 'Libre Baskerville', serif;    
+    height: 100%;    
 }
 
-body{margin: 0;}
+body{
+    margin: 0;
+    height: 100%;
+}
 
 #middle{
     text-align: center;
+    height: 100%;
+}
+
+.perfil {
+    position: relative;
+    top: -10px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+}
+
+.contact {
+    position: relative;
+    display: flex;
+}
+
+.icon {
+    width: 30px;
+    height: 30px;
+    background-color: #000000;
+    animation-name: icon_animation;
+    animation-duration: 1s;
+    animation-iteration-count: infinite;
+    animation-direction: alternate-reverse;
+    border-radius: 4px;
+}
+
+@keyframes icon_animation {
+    from { background-color: #ffffff; }
+    to { background-color:  var(--icon-bg-color); }
 }
 
 #p-cards{    
@@ -56,14 +93,6 @@ body{margin: 0;}
     text-align: center;
 }
 
-.p-title{
-    
-}
-
-.p-date{
-    
-}
-
 .p-link{
     text-decoration: none;
     color: var(--link-color);   
@@ -77,14 +106,14 @@ body{margin: 0;}
 .p-footer{
     position: relative;
     display: flex;   
-    justify-content: space-between;    
+    justify-content: space-between;     
     margin: 0px 10px 0px 10px;   
 }
 
 .project:hover{                 
     transition: 1s;
     transition-timing-function: ease-in-out;
-    background-color: #2e2eb8;
+    background-color: var(--card-hover-color);
 }
 
 .nav {
@@ -92,28 +121,43 @@ body{margin: 0;}
     padding: 8px;
     margin: 0;
     font-size: 20px;
-    color: var(--link-color);  
+    color: var(--link-color);      
+    height: 100px;
+    display: flex;
+    justify-content: space-between;
+    /* display: flex;     */
+    /* justify-content: center; */
 }
 
 .nav a {
     text-decoration: none;
-    color: var(--link-color);    
+    color: var(--link-color);  
 }
 
-.nav-ul {
+.nav-ul {    
+    max-width: 500px;
     list-style: none;
     display: flex;
     justify-content: center;
+    justify-content: space-between;    
 }
 
 .nav-li {
  
     padding: 10px;
     margin: 5px;
-    border: 5px solid var(--nav-bg-color);
+    /* border: 5px solid var(--nav-bg-color); */
+    border: none;
 }
 
 .nav-li:hover {
     border-bottom-color: var(--nav-item-color);
-    transition: 1s
+    transition: 1s;
+}
+
+.nav-li a { transition: 1s; }
+.nav-li a:hover {
+    font-size: 21px;
+    font-weight: bold;
+    transition: 0.2s;    
 }
