@@ -4,8 +4,24 @@
         <title>Ozeias Souza</title>
         <link rel="stylesheet" href="index.css">
         <meta charset="utf-8">
+        <style type="text/css">
+            /* html, body {
+              background-color: #171717;
+              margin: 0; padding: 0;
+            } */
+      
+            #scene {
+              position: absolute;
+              z-index: -1;
+              width: 100vw;
+              height: 100vh;
+              /* left: 50%; top: 50%;
+              transform: translate(-50%, -50%); */
+            }
+          </style>
     </head>
-    <main>        
+    <main>    
+        <div id="scene"></div>  
         <nav class="nav">
             <ul class="nav-ul">
                 <li class="nav-li">
@@ -24,11 +40,11 @@
                         <img class="perfil" src="https://avatars.githubusercontent.com/u/44115785?v=4"/>
                         </a>
                     </li>
-                    <li class="nav-li">
+                    <!-- <li class="nav-li">
                         <a target="_blank" href="https://www.linkedin.com/in/oz%C3%A9ias-silva-souza-b47b1a182/">
                             <img class="icon" src="icons/linkedin.png">
                         </a>
-                    </li>                
+                    </li>                 -->
                 </div>                     
             </ul>
         </nav>        
@@ -72,4 +88,8 @@
             </div>
         </div>
     </main>
+    <footer>
+        <script type="text/javascript" src="js/three.js"></script>
+        <script type="text/javascript" src="scene/stars.js"></script>
+    </footer>
 </html>
