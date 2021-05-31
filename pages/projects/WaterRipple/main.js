@@ -28,7 +28,7 @@ window.onload = function(){
     // })
 
     // Jquery event
-    addEventListener("mousemove", (e)=>{
+    canvas.addEventListener("click", (e)=>{
         let x = Math.round(e.clientX);
         let y = Math.round(e.clientY);
 
