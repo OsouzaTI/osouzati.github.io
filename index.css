@@ -4,7 +4,8 @@
     --text-color: #000000;
     --nav-bg-color: #0c253d85;
     --nav-item-color: #769fcd;
-    --card-hover-color: #125adf67;
+    --card-hover-color: #125adf2f;
+    --card-link-color: #088af5f6;
     --link-color: #d3dce2;
     --nav-bg-color1: #061735b9;
     --icon-color: #ffffff;
@@ -82,6 +83,11 @@ body{
     -moz-box-shadow: 4px 3px 5px 0px rgba(0,0,0,0.25);
     box-shadow: 4px 3px 5px 0px rgba(0,0,0,0.25);
 
+}
+
+.project a {
+    text-decoration: none;    
+    color: var(--card-link-color);
 }
 
 .p-body{    
