@@ -31,7 +31,12 @@ window.onload = function(){
     addEventListener("mousemove", (e)=>{
         let x = Math.round(e.clientX);
         let y = Math.round(e.clientY);
-        previous[x][y] = 255;
+
+        let wx = x - canvas.offsetLeft;
+        let wy = y - canvas.offsetTop;
+        
+        if(wx >= 0 && wx < canvasWidth && wy >= 0 && wy < canvasHeight)
+            previous[wx][wy] = 255;
     });
 
     range.addEventListener('change', ()=>{

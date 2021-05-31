@@ -2,23 +2,46 @@
     <head>
         <script src="main.js" width=640 height=480></script>        
         <meta charset="utf8" />
+        <title>WaterRipple</title>
         <style>
-            body{
+            html, body{
                 margin: 0;
+                background-color: black;
+            }
+
+            .wrapper {
+                width: 100vw;
+                height: 100vh;
+                display: flex;
+                flex-direction: column; 
+                align-items: center;                               
             }
 
             .slidecontainer{
                 display: flex;                
-                justify-content: space-evenly;
+                justify-content: space-evenly;             
+                border: 1px solid white;
+                border-radius: 10px;
+                color: white;
+                padding: 5px;
+                margin-top: 10px;
             }
+
+            canvas {      
+                width: 640px;
+                height: 480px;                          
+                border: 1px solid white;                  
+            }
+
         </style>
     </head>
-    <body>
-        <div class="slidecontainer">
-            <label id="l-range"> Dampening:</label> 
-            <input type="range" min="0" max="100" value="90" class="slider" id="myrange">
-        </div>
-        <canvas id="canvas"  width="640" height="480">
-        </canvas>
+    <body>        
+        <header class="wrapper">
+            <canvas id="canvas" width="640" height="480"></canvas>
+            <div class="slidecontainer">
+                <label id="l-range"> Dampening:</label> 
+                <input type="range" min="0" max="100" value="90" class="slider" id="myrange">
+            </div>
+        </header>
     </body>
 </html>
