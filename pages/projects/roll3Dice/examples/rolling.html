@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="../node_modules/three/build/three.js"></script>
+    <script src="../node_modules/cannon/build/cannon.js"></script>
+    <script src="../node_modules/three/examples/js/controls/OrbitControls.js"></script>
+    <script src="../node_modules/three/examples/js/libs/stats.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="../lib/dice.js"></script>
+    <script src="../lib/diceControll.js"></script>
+    <script src="../lib/random.js"></script>
+    <style>
+        
+        .menu {
+            top: 100px;
+            left: 10px;
+            position: fixed;
+            border: 1px solid white;
+            border-radius: 5px;
+            padding: 4px;
+        }
+
+        .dice-controll {
+            margin: 2px;
+        }
+
+        .controller-container {             
+            text-align: center;
+        }
+
+        .dices {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            color: #fff;
+        }
+
+        #ThreeJS {
+            z-index: -1;
+        }
+    </style>
+</head>
+<body>
+    <div id="ThreeJS" style="position: absolute; left:0px; top:0px"></div>
+    <header class="menu">
+        <div class="container dices">
+            <div class="row">
+                <div class="col">
+                    <label id="d4l">0 d4</label>
+                </div>
+                <div class="col d-flex">
+                    <button id="d4p" type="button" class="btn btn-success dice-controll">+</button>                    
+                    <button id="d4m" type="button" class="btn btn-success dice-controll">-</button>                    
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <label id="d6l">0 d6</label>
+                </div>
+                <div class="col d-flex">
+                    <button id="d6p" type="button" class="btn btn-success dice-controll">+</button>                    
+                    <button id="d6m" type="button" class="btn btn-success dice-controll">-</button>                    
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <label id="d8l">0 d8</label>
+                </div>
+                <div class="col d-flex">
+                    <button id="d8p" type="button" class="btn btn-success dice-controll">+</button>                    
+                    <button id="d8m" type="button" class="btn btn-success dice-controll">-</button>                    
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <label id="d10l">0 d10</label>
+                </div>
+                <div class="col d-flex">
+                    <button id="d10p" type="button" class="btn btn-success dice-controll">+</button>                    
+                    <button id="d10m" type="button" class="btn btn-success dice-controll">-</button>                    
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <label id="d12l">0 d12</label>
+                </div>
+                <div class="col d-flex">
+                    <button id="d12p" type="button" class="btn btn-success dice-controll">+</button>                    
+                    <button id="d12m" type="button" class="btn btn-success dice-controll">-</button>                    
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <label id="d20l">0 d20</label>
+                </div>
+                <div class="col d-flex">
+                    <button id="d20p" type="button" class="btn btn-success dice-controll">+</button>                    
+                    <button id="d20m" type="button" class="btn btn-success dice-controll">-</button>                    
+                </div>
+            </div>
+        
+        </div>
+        <div class="controller-container">            
+            <button id="btThrow" type="button" class="btn btn-success controller">Lançar</button>
+            <button id="btClean" type="button" class="btn btn-success controller">Limpar</button>
+        </div>
+    </header>
+    <script type="text/javascript" src="../lib/rolling.js"></script>    
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</body>
+</html>
