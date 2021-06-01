@@ -4,6 +4,7 @@ let container,
     camera,
     renderer,
     controls,
+    listener,
     stats,
     world,
     dice = [];
@@ -11,6 +12,7 @@ let mousex = 0;
 let mousey = 0;
 
 let orbitalCamera = false;
+let activateAudio = false;
 
 // Dice Controller
 const diceController = new DiceControll();
@@ -37,6 +39,18 @@ function init()
 	camera = new THREE.PerspectiveCamera( VIEW_ANGLE, ASPECT, NEAR, FAR);
     camera.rotation.x = -Math.PI/2;
     
+    // // create an AudioListener and add it to the camera
+    listener = new THREE.AudioListener();
+    camera.add(listener);
+    // create a global audio source
+    const sound = new THREE.Audio( listener );
+    
+    // load a sound and set it as the Audio object's buffer
+    const audioLoader = new THREE.AudioLoader();
+    
+    // create a global audio source
+    // const sound = new THREE.Audio( listener );
+
     // setInterval(_=>{
     //     camera.rotation.x += 0.01;
     //     // camera.rotation.y += 0.01;
@@ -85,6 +99,16 @@ function init()
     light.shadow.mapSize.width = 1024;
     light.shadow.mapSize.height = 1024;
     scene.add(light);
+
+    let light1 = new THREE.SpotLight(0xefdfd5, 0.2);
+    light.position.y = 60;
+    light.target.position.set(0, 0, 0);
+    light.castShadow = true;
+    light.shadow.camera.near = 50;
+    light.shadow.camera.far = 110;
+    light.shadow.mapSize.width = 1024;
+    light.shadow.mapSize.height = 1024;
+    scene.add(light1);
 
     
 	// FLOOR
@@ -155,80 +179,55 @@ function init()
     floorBody.quaternion.setFromAxisAngle(new CANNON.Vec3(1, 0, 0), -Math.PI / 2);
     world.add(floorBody);
 
-    //-------------- Walls    
+    //-------------- Walls  
+    function createShape({x, y, z, width, height, depth}){
+        // console.log(x, y, z, width, height, depth);
+        // parte fisica
+        let vector = new CANNON.Vec3(width/2, height/2, depth/2);
+        let cannonGeometry = new CANNON.Box(vector);
+        let bodyShape = new CANNON.Body({mass: 0, shape: cannonGeometry});
+        world.addBody(bodyShape);
+
+        // parte gráfica
+        let material = new THREE.MeshPhongMaterial({
+            color: '#FFFFFF',
+            opacity: 0.0,
+            transparent: true,
+        }); 
+
+        let threeGeometry = new THREE.BoxGeometry(width, height, depth);
+        let geometryMesh = new THREE.Mesh( threeGeometry, material ); 
+
+        geometryMesh.position.set(x, y, z);
+        bodyShape.position.set(x, y, z);  
+
+        return geometryMesh;
+    }
+
+
+
     // Physics
-    let wallLeftSize  = {x: -25, y: 0, z: 0, width: 1, height: 25, depth: 50};
-    let wallRightSize = {x: 25, y: 0, z: 0, width: 1, height: 25, depth: 50};
-    let wallTopSize   = {x: 0, y: 0, z: -25, width: 50, height: 25, depth: 1};
-    let wallDownSize  = {x: 0, y: 0, z: 25, width: 50, height: 25, depth: 1};
-
-    let shapeWallLeft = new CANNON.Box(new CANNON.Vec3(wallLeftSize.width/2, wallLeftSize.height/2, wallLeftSize.depth/2));
-    let shapeWallRight = new CANNON.Box(new CANNON.Vec3(wallRightSize.width/2, wallRightSize.height/2,wallRightSize.depth/2));
-    let shapeWallTop = new CANNON.Box(new CANNON.Vec3(wallTopSize.width/2, wallTopSize.height/2, wallTopSize.depth/2));
-    let shapeWallDown = new CANNON.Box(new CANNON.Vec3(wallDownSize.width/2, wallDownSize.height/2, wallDownSize.depth/2));
-    let bodyWallLeft = new CANNON.Body({mass: 0, shape: shapeWallLeft});    
-    let bodyWallRight = new CANNON.Body({mass: 0, shape: shapeWallRight});    
-    let bodyWallTop = new CANNON.Body({mass: 0, shape: shapeWallTop});    
-    let bodyWallDown = new CANNON.Body({mass: 0, shape: shapeWallDown});    
-    world.addBody(bodyWallLeft);
-    world.addBody(bodyWallRight);
-    world.addBody(bodyWallTop);
-    world.addBody(bodyWallDown);
-
-    // Graphics
-    let cubeMaterial = new THREE.MeshPhongMaterial({
-        color: '#FFFFFF',
-        opacity: 0.0,
-        transparent: true,
-    });  
-
-    let wallLeft = new THREE.BoxGeometry(wallLeftSize.width, wallLeftSize.height, wallLeftSize.depth);
-    let wallRight = new THREE.BoxGeometry(wallRightSize.width, wallRightSize.height, wallRightSize.depth);
-    let wallTop = new THREE.BoxGeometry(wallTopSize.width, wallTopSize.height, wallTopSize.depth);
-    let wallDown = new THREE.BoxGeometry(wallDownSize.width, wallDownSize.height, wallDownSize.depth);
+    let wallLeftSize  = {x: -25, y: 40, z: 0, width: 1,    height: 80, depth: 50};
+    let wallRightSize = {x: 25,  y: 40, z: 0, width: 1,    height: 80, depth: 50};
+    let wallTopSize   = {x: 0,   y: 40, z: -25, width: 50, height: 80, depth: 1};
+    let wallDownSize  = {x: 0,   y: 40, z: 25, width: 50,  height: 80, depth: 1};
     
-    let wallLeftMesh = new THREE.Mesh( wallLeft, cubeMaterial );    
-    let wallRightMesh = new THREE.Mesh( wallRight, cubeMaterial );
-    let wallTopMesh = new THREE.Mesh( wallTop, cubeMaterial );
-    let wallDownMesh = new THREE.Mesh( wallDown, cubeMaterial );    
-    
-    wallLeftMesh.position.set(wallLeftSize.x, wallLeftSize.y, wallLeftSize.z);
-    bodyWallLeft.position.set(wallLeftSize.x, wallLeftSize.y, wallLeftSize.z);
-    wallRightMesh.position.set(wallRightSize.x, wallRightSize.y, wallRightSize.z);
-    bodyWallRight.position.set(wallRightSize.x, wallRightSize.y, wallRightSize.z);
-    wallTopMesh.position.set(wallTopSize.x, wallTopSize.y, wallTopSize.z);
-    bodyWallTop.position.set(wallTopSize.x, wallTopSize.y, wallTopSize.z);
-    wallDownMesh.position.set(wallDownSize.x, wallDownSize.y, wallDownSize.z);
-    bodyWallDown.position.set(wallDownSize.x, wallDownSize.y, wallDownSize.z);
-    
-    // wallTopMesh.quaternion.setFromAxisAngle(new CANNON.Vec3(1, 0, 0), -Math.PI/2);
-    // bodyWallTop.quaternion.setFromAxisAngle(new CANNON.Vec3(1, 0, 0), -Math.PI/2);
-    // wallDownMesh.quaternion.setFromAxisAngle(new CANNON.Vec3(1, 0, 0), -Math.PI/2);
-    // bodyWallDown.quaternion.setFromAxisAngle(new CANNON.Vec3(1, 0, 0), -Math.PI/2);
+    let wallLeft = createShape(wallLeftSize);
+    let wallRight = createShape(wallRightSize);
+    let wallTop = createShape(wallTopSize);
+    let wallDown = createShape(wallDownSize);
 
-
-    scene.add(wallLeftMesh);
-    scene.add(wallRightMesh);
-    scene.add(wallTopMesh);
-    scene.add(wallDownMesh);
-
-    // let colors = ['#ff0000', '#ffff00', '#00ff00', '#0000ff', '#ff00ff'];
-    
-    // for (let i = 0; i < 5; i++) {
-    //     let die = new DiceD8({
-    //         size: 2.5,
-    //         backColor: '#212121',
-    //         fontColor: '#ffffff'
-    //     });
-    //     dice.push(die);
-    // }
+    scene.add(wallLeft);
+    scene.add(wallRight);
+    scene.add(wallTop);
+    scene.add(wallDown);
 
     function randomDiceThrow() {
         dice = diceController.getDices();
 
         let diceValues = [];
         let rng = new RNG(Math.random()*10);
-        for (var i = 0; i < dice.length; i++) {
+        for (var i = 0; i < dice.length; i++) {            
             scene.add(dice[i].getObject());
 
             let yRand = rng.nextRange(20, 30);
@@ -253,17 +252,46 @@ function init()
                 value: rng.nextRange(1, dice[i].values)
             });
         }
-
+        
         DiceManager.prepareValues(diceValues);
     }
-
-    // setInterval(()=>{
-    //     randomDiceThrow();
-    // }, 3000);
+    
     document.getElementById("btThrow").addEventListener('click',()=>{
         randomDiceThrow();        
         setTimeout(()=>{
-            dice.forEach(d => console.log(d.getUpsideValue()));
+            let history = document.getElementById("history");
+
+            if(history.children.length > 3){
+                let resultList = history.getElementsByClassName("result");
+                history.removeChild(resultList[0]);
+            }
+
+
+            let beginRow = `<div class="result">`;
+            dice.forEach(d =>{
+                let value = d.getUpsideValue();
+                
+                if(activateAudio){
+                    if(value == 1){
+                        audioLoader.load('../audios/falhaCritica.mp3', (b)=>play(b, sound));
+                    }else if(value == 20){
+                        audioLoader.load('../audios/acertoCritico.mp3', (b)=>play(b, sound));
+                    }
+                }
+
+                let status = "";
+                if(value == d.values)
+                    status = 'acertoCritico';
+                else if(value == 1)
+                    status = 'erroCritico';
+
+                beginRow += `
+                <div class="result-item ${status}">${value}</div>                
+                `;
+            });
+            beginRow += `</div>`;        
+            history.innerHTML += beginRow;           
+
         }, 3000)
     });
 
@@ -296,13 +324,16 @@ const d20m = document.getElementById("d20m");
 const d20l = document.getElementById("d20l");
 
 document.getElementById("btClean").addEventListener('click', ()=>{
+    diceController.getDices().forEach(d => {
+        scene.remove(d.getObject());
+    });
     diceController.cleanDices();  
     d4l.innerHTML = `0 d4`;      
     d6l.innerHTML = `0 d6`;      
     d8l.innerHTML = `0 d8`;      
     d10l.innerHTML = `0 d10`;      
     d12l.innerHTML = `0 d12`;      
-    d20l.innerHTML = `0 d20`;      
+    d20l.innerHTML = `0 d20`;        
 })
 
 d4p.addEventListener('click', ()=>{
@@ -378,7 +409,7 @@ function animate()
 function updatePhysics() {
     world.step(1.0 / 60.0);
 
-    for (var i in dice) {
+    for (let i in dice) {
         dice[i].updateMeshFromBody();
     }
 }

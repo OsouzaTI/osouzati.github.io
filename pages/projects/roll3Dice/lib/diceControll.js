@@ -2,9 +2,9 @@ class DiceControll {
 
     constructor(){
         this.dice = [];
-        this.d4 = 0;
-        this.d6 = 0;
-        this.d8 = 0;
+        this.d4  = 0;
+        this.d6  = 0;
+        this.d8  = 0;
         this.d10 = 0;
         this.d12 = 0;
         this.d20 = 0;
@@ -16,6 +16,12 @@ class DiceControll {
 
     cleanDices(){
         this.dice.splice(0, this.dice.length);
+        this.d4  = 0;
+        this.d6  = 0;
+        this.d8  = 0;
+        this.d10 = 0;
+        this.d12 = 0;
+        this.d20 = 0;
     }
 
     getD4  = _ => this.d4;
@@ -25,12 +31,17 @@ class DiceControll {
     getD12 = _ => this.d12;
     getD20 = _ => this.d20;
 
-    // Add dices
+    getColorPickerValue(){
+        let colorPicker = document.getElementsByClassName("color-picker");
+        // console.log(colorPicker[0].value);
+        return colorPicker[0].value;
+    }
 
+    // Add dices
     addD4(){
         let die = new DiceD4({
             size: 2.5,
-            backColor: '#212121',
+            backColor: this.getColorPickerValue(),
             fontColor: '#ffffff'
         });
         this.dice.push(die);    
@@ -40,7 +51,7 @@ class DiceControll {
     addD6(){
         let die = new DiceD6({
             size: 2.5,
-            backColor: '#212121',
+            backColor: this.getColorPickerValue(),
             fontColor: '#ffffff'
         });
         this.dice.push(die);    
@@ -50,7 +61,7 @@ class DiceControll {
     addD8(){
         let die = new DiceD8({
             size: 2.5,
-            backColor: '#212121',
+            backColor: this.getColorPickerValue(),
             fontColor: '#ffffff'
         });
         this.dice.push(die);    
@@ -60,7 +71,7 @@ class DiceControll {
     addD10(){
         let die = new DiceD10({
             size: 2.5,
-            backColor: '#212121',
+            backColor: this.getColorPickerValue(),
             fontColor: '#ffffff'
         });
         this.dice.push(die);    
@@ -70,7 +81,7 @@ class DiceControll {
     addD12(){
         let die = new DiceD12({
             size: 2.5,
-            backColor: '#212121',
+            backColor: this.getColorPickerValue(),
             fontColor: '#ffffff'
         });
         this.dice.push(die);    
@@ -80,7 +91,7 @@ class DiceControll {
     addD20(){
         let die = new DiceD20({
             size: 2.5,
-            backColor: '#212121',
+            backColor: this.getColorPickerValue(),
             fontColor: '#ffffff'
         });
         this.dice.push(die);    
