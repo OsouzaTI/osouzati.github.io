@@ -294,7 +294,7 @@ function init()
             beginRow += `</div>`;        
             history.innerHTML += beginRow;           
             document.getElementById("btClean").classList.remove('disabled');
-        }, 3000)
+        }, 4000)
     });
 
     requestAnimationFrame( animate );
@@ -328,7 +328,7 @@ const d20l = document.getElementById("d20l");
 document.getElementById("btClean").addEventListener('click', (e)=>{
     if(document.getElementById("btClean").classList.contains('disabled'))
         return false;
-        
+
     diceController.getDices().forEach(d => {
         scene.remove(d.getObject());
     });
