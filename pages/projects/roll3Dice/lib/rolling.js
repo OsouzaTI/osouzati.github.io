@@ -116,7 +116,7 @@ function init()
 	let floorMaterial = new THREE.MeshPhongMaterial({
         color: '#fff',
         side: THREE.DoubleSide,
-        map: loader.load('../images/table01.bmp')
+        map: loader.load('../images/table01.png')
     });
 	let floorBaseMaterial = new THREE.MeshPhongMaterial({ color: '#212121', side: THREE.DoubleSide});
 	
