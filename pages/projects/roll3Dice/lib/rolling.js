@@ -258,6 +258,8 @@ function init()
     
     document.getElementById("btThrow").addEventListener('click',()=>{
         randomDiceThrow();        
+        if(dice.length == 0)return false;
+        document.getElementById("btClean").classList.add('disabled');
         setTimeout(()=>{
             let history = document.getElementById("history");
 
@@ -270,7 +272,7 @@ function init()
             let beginRow = `<div class="result">`;
             dice.forEach(d =>{
                 let value = d.getUpsideValue();
-                
+
                 if(activateAudio){
                     if(value == 1){
                         audioLoader.load('../audios/falhaCritica.mp3', (b)=>play(b, sound));
@@ -291,7 +293,7 @@ function init()
             });
             beginRow += `</div>`;        
             history.innerHTML += beginRow;           
-
+            document.getElementById("btClean").classList.remove('disabled');
         }, 3000)
     });
 
@@ -323,7 +325,10 @@ const d20p = document.getElementById("d20p");
 const d20m = document.getElementById("d20m");
 const d20l = document.getElementById("d20l");
 
-document.getElementById("btClean").addEventListener('click', ()=>{
+document.getElementById("btClean").addEventListener('click', (e)=>{
+    if(document.getElementById("btClean").classList.contains('disabled'))
+        return false;
+        
     diceController.getDices().forEach(d => {
         scene.remove(d.getObject());
     });
