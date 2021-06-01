@@ -260,15 +260,24 @@ function init()
         randomDiceThrow();        
         if(dice.length == 0)return false;
         document.getElementById("btClean").classList.add('disabled');
-        setTimeout(()=>{
+        let t = setInterval(()=>{
+            // verificando se todos os dados pararam
+            for(let i in dice){
+                if(!dice[i].isFinished())
+                    return false;
+            }
+
+            // pegando a DOM para inserir os elementos resultantes
             let history = document.getElementById("history");
 
+            // sempre que for maior que 3 sera 
+            // removido o ulitmo nodo do history
             if(history.children.length > 3){
                 let resultList = history.getElementsByClassName("result");
                 history.removeChild(resultList[0]);
             }
 
-
+            // criando os nós da DOM
             let beginRow = `<div class="result">`;
             dice.forEach(d =>{
                 let value = d.getUpsideValue();
@@ -293,8 +302,12 @@ function init()
             });
             beginRow += `</div>`;        
             history.innerHTML += beginRow;           
-            document.getElementById("btClean").classList.remove('disabled');
-        }, 4000)
+
+            // botão volta a ser clicável
+            document.getElementById("btClean").classList.remove('disabled');            
+            // encerra o timer
+            clearInterval(t);
+        }, 1000)
     });
 
     requestAnimationFrame( animate );
